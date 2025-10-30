@@ -72,23 +72,36 @@ function endGame(winnerIndex, message = '') {
   winnerNameInput.placeholder = `Spelare ${winnerIndex + 1}`;
 }
 
-// ------------------ Highscore ------------------
-saveWinnerBtn.addEventListener('click', () => {
+// ------------------ Highscore med backend ------------------
+saveWinnerBtn.addEventListener('click', async () => {
   const name = winnerNameInput.value.trim() || `Spelare ${active + 1}`;
-  const hs = JSON.parse(localStorage.getItem('webChickenHighscores') || '{}');
-  hs[name] = (hs[name] || 0) + 1;
-  localStorage.setItem('webChickenHighscores', JSON.stringify(hs));
-  endSection.hidden = true;
-  newGame();
-  loadHighscores();
+  try {
+    await fetch('/api/highscores', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+    endSection.hidden = true;
+    newGame();
+    loadHighscores();
+  } catch (err) {
+    console.error('Kunde inte spara highscore:', err);
+    alert('Misslyckades att spara highscore på servern.');
+  }
 });
 
-function loadHighscores() {
-  const hs = JSON.parse(localStorage.getItem('webChickenHighscores') || '{}');
-  const entries = Object.entries(hs).sort((a, b) => b[1] - a[1]);
-  highscoreList.innerHTML = entries.length
-    ? entries.map(([n, v]) => `<li>${n} — ${v} vinster</li>`).join('')
-    : '<li>Ingen highscore ännu</li>';
+async function loadHighscores() {
+  try {
+    const res = await fetch('/api/highscores');
+    const hs = await res.json();
+    const entries = Object.entries(hs).sort((a, b) => b[1] - a[1]);
+    highscoreList.innerHTML = entries.length
+      ? entries.map(([n, v]) => `<li>${n} — ${v} vinster</li>`).join('')
+      : '<li>Ingen highscore ännu</li>';
+  } catch (err) {
+    console.error('Kunde inte hämta highscore:', err);
+    highscoreList.innerHTML = '<li>Fel vid hämtning av highscore</li>';
+  }
 }
 
 // ------------------ Event listeners ------------------
