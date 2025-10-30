@@ -12,3 +12,4 @@ Spelets utseende skall gå att redigera via en css-fil.
 -[]Skapa CSS-filenmed grundläggande stil-konfigurationer
 -[]Skapa javascript-fil för tärningskast samt påängräkning
 -[]Skapa json-fil som förvaringsplats av highscore (t.ex. PHP, Python)
+-[]Välj ett språk för "backend"-operationer
