@@ -1,15 +1,29 @@
-# webChickenGame
-##Beskrivning av produkten
-Ett spel för två spelare. Man klastar turvist tärning, för att samla ihop poäng till en viss summa. Blir summan för stor (man går över) förlorar spealren. En spelare kan också välja att stanna vid en summa, och låta den andra spelaren fortsätta kasta.
+# Web Chicken Game
 
-Vinnarens namn frågas efter spelet, och en highscore tabell uppdateras så att totala antalet vinster för varje spelare sparas.
+## Beskrivning
+Web Chicken Game är ett tvåspelars tärningsspel där målet är att samla poäng utan att gå över 100 poäng. Spelarna turas om att kasta tärning, och kan välja att stanna och spara poäng. Den som först når 100 poäng vinner. Vinnaren kan skriva in sitt namn och highscore sparas på servern.
 
-Spelets utseende skall gå att redigera via en css-fil.
+## Funktioner
+- Två spelare turas om att kasta tärning.
+- Möjlighet att stanna och låta motståndaren fortsätta.
+- Highscore sparas på servern och visas i en lista med alla spelare och deras totala vinster.
+- Spelets utseende kan enkelt ändras via `style.css`.
 
-##Plan för uppbyggnaden (Varje skede skall pushas till GitHub)
+## Teknisk beskrivning
 
--[ ]Skapa Html-dokument med alla obligatoriska taggar
--[ ]Skapa CSS-filenmed grundläggande stil-konfigurationer
--[ ]Skapa javascript-fil för tärningskast samt påängräkning
--[ ]Skapa json-fil som förvaringsplats av highscore (t.ex. PHP, Python)
--[ ]Välj ett språk för "backend"-operationer
+### Frontend
+- **HTML (`index.html`)** – UI och struktur.
+- **CSS (`style.css`)** – Layout, färger och stil.
+- **JavaScript (`game.js`)** – Spel-logik, tärningskast, turbyte, nytt spel och highscore via backend.
+
+### Backend
+- **Node.js med Express (`server.js`)** – Hanterar:
+  - `GET /api/highscores` – hämtar highscores.
+  - `POST /api/highscores` – sparar vinst.
+- **`highscores.json`** – lagrar highscores som JSON-objekt.
+
+## Installation och körning
+1. Klona projektet eller kopiera filerna.
+2. Installera Node.js och Express:
+   ```bash
+   npm install express
