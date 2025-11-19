@@ -10,7 +10,8 @@
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
-  background: var(--bg);
+  background: url('./images/Spelbakgrund.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #111;
   display: flex;
   justify-content: center;
@@ -96,3 +97,4 @@ button:disabled {
   padding: 6px 0;
   border-bottom: 1px solid #f0f0f0;
 }
+
